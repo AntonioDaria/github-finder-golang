@@ -2,15 +2,10 @@ module dev/github-fav-language
 
 go 1.17
 
-require (
-	github.com/gofiber/fiber/v2 v2.51.0
-	github.com/gorilla/mux v1.8.0
-	github.com/pulumi/pulumi/sdk/v3 v3.24.1
-)
+require github.com/gofiber/fiber/v2 v2.51.0
 
 require (
 	github.com/andybalholm/brotli v1.0.5 // indirect
-	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b // indirect
 	github.com/google/uuid v1.4.0 // indirect
 	github.com/klauspost/compress v1.16.7 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
