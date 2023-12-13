@@ -1,27 +1,33 @@
 package main
 
 import (
-	githubclient "dev/github-fav-language/github-client"
-	"dev/github-fav-language/handlers"
-	"log"
+	"context"
+	api "dev/github-fav-language/api/github_api"
+	"dev/github-fav-language/clients/github"
+	"fmt"
 	"net/http"
-
-	"github.com/gorilla/mux"
+	"os"
+	"os/signal"
+	"syscall"
 )
 
 func main() {
-	//Init router
-	router := mux.NewRouter()
+	// HTTP Server
+	ctx := context.Background()
 
-	//INSTANTIATE THE HANDLER
-	h := handlers.Handler{
-		GithubClient: &githubclient.LangugeClient{
-			Doer: http.DefaultClient,
-		},
-	}
+	gitHubClient := github.NewClient(http.DefaultClient)
+	server := api.NewServer(gitHubClient)
 
-	// Route Handlers / Endpoints
-	router.HandleFunc("/favLanguage/{userName}", h.GetFavLanguage).Methods("GET")
+	// Graceful shutdown
+	osSignals := make(chan os.Signal, 1)
+	signal.Notify(osSignals, syscall.SIGINT, syscall.SIGTERM, syscall.SIGQUIT)
+	go func() {
+		<-osSignals
+		fmt.Fprint(os.Stdout, "🛑 Shutting down Server")
+		server.Shutdown()
+		fmt.Fprint(os.Stdout, "🛑 HTTP Server shutdown complete")
+	}()
 
-	log.Fatal(http.ListenAndServe(":8000", router))
+	fmt.Println("🚀 Starting HTTP Server")
+	server.StartAndListen(ctx)
 }
