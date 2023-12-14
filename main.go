@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	api "dev/github-fav-language/api/github_api"
+	"dev/github-fav-language/api"
 	"dev/github-fav-language/clients/github"
 	"fmt"
 	"net/http"

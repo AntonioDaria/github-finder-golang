@@ -1,0 +1,14 @@
+// Replace all OptionalDate with string
+replace github.com/luna-protocol/ascent/packages/api.OptionalDate string
+
+// Replace all RequiredDate with string
+replace github.com/luna-protocol/ascent/packages/api.RequiredDate string
+
+// Replace all YearMonth with string
+replace github.com/luna-protocol/ascent/packages/api.YearMonth string
+
+// Replace all pq.StringArrays with [] string
+replace pq.StringArray []string
+
+// Replace all gorm.DeletedAt with time.Time
+replace gorm.DeletedAt time.Time

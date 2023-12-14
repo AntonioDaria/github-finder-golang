@@ -1,0 +1,51 @@
+basePath: /
+definitions:
+  api.JSONError:
+    properties:
+      error:
+        type: string
+    type: object
+  handler.GetFavLanguageResponse:
+    properties:
+      most_used_language:
+        type: string
+      user_name:
+        type: string
+    type: object
+host: localhost:8000
+info:
+  contact: {}
+  description: GITHub User Fav Language API
+  title: Ascent API
+  version: "1.0"
+paths:
+  /v1/github/fav-language/{userName}:
+    get:
+      consumes:
+      - application/json
+      description: Get the User Github favorite language
+      parameters:
+      - description: User Name
+        in: path
+        name: userName
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.GetFavLanguageResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.JSONError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.JSONError'
+      summary: Get favorite language
+      tags:
+      - Github
+swagger: "2.0"
