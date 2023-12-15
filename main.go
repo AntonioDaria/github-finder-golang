@@ -15,7 +15,7 @@ func main() {
 	// HTTP Server
 	ctx := context.Background()
 
-	gitHubClient := github.NewClient(http.DefaultClient)
+	gitHubClient := github.NewClient(http.DefaultClient, `https://api.github.com`) // TODO: Move url to config
 	server := api.NewServer(gitHubClient)
 
 	// Graceful shutdown

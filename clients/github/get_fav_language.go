@@ -14,7 +14,7 @@ type Repo struct {
 
 func (c *ClientImpl) GetFavLanguage(ctx context.Context, userName string) (string, error) {
 
-	url := fmt.Sprintf(`https://api.github.com/users/%s/repos`, userName)
+	url := fmt.Sprintf("%s/users/%s/repos", c.BaseURL, userName)
 
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
 	if err != nil {
@@ -36,7 +36,7 @@ func (c *ClientImpl) GetFavLanguage(ctx context.Context, userName string) (strin
 	}
 
 	if res.StatusCode != 200 {
-		fmt.Printf("Failed to read response body %v", err)
+		fmt.Printf("Failed to request %v", err)
 		return "", err
 	}
 
