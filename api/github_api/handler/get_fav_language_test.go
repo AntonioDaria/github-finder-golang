@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"fmt"
 	"io"
 	"net/http"
 	"net/http/httptest"
@@ -24,16 +23,10 @@ func Test_GetFavLanguageClientFailure(t *testing.T) {
 	_ = NewHandler(app, mockGithubClient)
 
 	// Test
-	url := "/v1/github/fav-language/antoniodaria"
+	url := "/github/fav-language/antoniodaria"
 	req := httptest.NewRequest(http.MethodGet, url, nil)
 	resp, _ := app.Test(req)
 	defer resp.Body.Close()
-
-	// convert response body to byte
-	res, err := io.ReadAll(resp.Body)
-	assert.NoError(t, err)
-
-	fmt.Println(">>>>>>>>>>>>", string(res))
 
 	// Assertions
 	assert.Equal(t, http.StatusInternalServerError, resp.StatusCode)
@@ -51,7 +44,7 @@ func Test_GetFavLanguageSuccess(t *testing.T) {
 	mockGithubClient.EXPECT().GetFavLanguage(gomock.Any(), "antoniodaria").Return("Go", nil)
 
 	// Test
-	url := "/v1/github/fav-language/antoniodaria"
+	url := "/github/fav-language/antoniodaria"
 	req := httptest.NewRequest(http.MethodGet, url, nil)
 	resp, _ := app.Test(req)
 	defer resp.Body.Close()
