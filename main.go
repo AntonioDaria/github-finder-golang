@@ -31,3 +31,5 @@ func main() {
 	fmt.Println("🚀 Starting HTTP Server")
 	server.StartAndListen(ctx)
 }
+
+//TODO: tag / build and push workflow to push do docker hub

@@ -52,7 +52,7 @@ func (s *Server) StartAndListen(ctx context.Context) {
 	v1group := app.Group("/v1")
 	_ = handler.NewHandler(v1group, s.GithubClient)
 
-	err := app.Listen(fmt.Sprintf(":%d", 8000)) // TODO: add port to config s.Config.APIPort
+	err := app.Listen(fmt.Sprintf("0.0.0.0:%d", 8000)) // TODO: add port to config s.Config.APIPort
 	if err != nil {
 		fmt.Printf("Failed to start/stop API: %v", err)
 	}
