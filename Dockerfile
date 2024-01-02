@@ -9,7 +9,7 @@ RUN echo "app:x:1001:1001:App User:/home/app:/sbin/nologin" > /etc/passwd_minima
 
 # Stage 2: Build the Go application
 FROM golang:latest AS builder
-ARG GOARCH=amd64
+ARG GOARCH=arm64
 WORKDIR /go/src/github.com/AntonioDaria/github-finder-golang 
 COPY go.mod go.sum ./
 RUN go mod download
